@@ -1,0 +1,41 @@
+Directories:
+   Base:
+      bin:
+         name: bin
+         chmod: 755
+         user: root
+         group: root
+
+   Runtime:
+      pid:
+         name: run
+         chmod: 755
+         user: <%= ServerControl::Args->get->{'user'} %>
+         group: <%= ServerControl::Args->get->{'group'} %>
+      tmp:
+         name: tmp
+         chmod: 1777
+         user: <%= ServerControl::Args->get->{'user'} %>
+         group: <%= ServerControl::Args->get->{'group'} %>
+      log:
+         name: logs
+         chmod: 755
+         user: <%= ServerControl::Args->get->{'user'} %>
+         group: <%= ServerControl::Args->get->{'group'} %>
+
+   Configuration:
+      conf:
+         name: conf
+         chmod: 755
+         user: root
+         group: root
+
+Files:
+   Exec:
+      clamd:
+         name: bin/clamd-<%= __PACKAGE__->get_name %>
+         link: <%= ServerControl::Schema->get('clamd') %>
+      freshclam:
+         name: bin/freshclam-<%= __PACKAGE__->get_name %>
+         link: <%= ServerControl::Schema->get('freshclam') %>
+
