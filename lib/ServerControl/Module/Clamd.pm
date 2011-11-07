@@ -9,7 +9,7 @@ package ServerControl::Module::Clamd;
 use strict;
 use warnings;
 
-our $VERSION = '0.94';
+our $VERSION = '0.95';
 
 use ServerControl::Module;
 use ServerControl::Commons::Process;

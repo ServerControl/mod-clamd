@@ -15,6 +15,7 @@ use base qw(ServerControl::Schema::Module);
 __PACKAGE__->register(
    
       'clamd'           => '/usr/sbin/clamd',
+      'freshclam'	=> '/usr/bin/freshclam',
 
 );
 

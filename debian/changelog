@@ -1,3 +1,8 @@
+servercontrol-mod-clamd (0.95) unstable; urgency=low
+  * added freshclam to debian schema
+
+ -- Daniel Bäurer <daniel.baeurer@web.de>  Mon, 07 Nov 2011 13:02:00 +0200
+
 servercontrol-mod-clamd (0.94) unstable; urgency=low
   * inital version
 
