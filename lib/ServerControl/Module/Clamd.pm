@@ -9,7 +9,7 @@ package ServerControl::Module::Clamd;
 use strict;
 use warnings;
 
-our $VERSION = '0.95';
+our $VERSION = '0.96';
 
 use ServerControl::Module;
 use ServerControl::Commons::Process;
@@ -39,7 +39,8 @@ sub help {
 sub start {
    my ($class) = @_;
 
-   my $conf_file   = ServerControl::FsLayout->get_file("Configuration", "conf");
+   my $clamd_conf_file		= ServerControl::FsLayout->get_file("Configuration", "clamd_conf");
+   my $freshclam_conf_file	= ServerControl::FsLayout->get_file("Configuration", "freshclam_conf");
 
    my ($name, $path)    = ($class->get_name, $class->get_path);
 
@@ -47,13 +48,13 @@ sub start {
    my $fresh_clam  = ServerControl::FsLayout->get_file("Exec", "freshclam");
 
    # get updates first
-   spawn("$path/$fresh_clam --config-file $path/$conf_file");
+   spawn("$path/$fresh_clam --config-file $path/$freshclam_conf_file");
 
    # then start clamd
-   spawn("$path/$exec_file -c $path/$conf_file");
+   spawn("$path/$exec_file -c $path/$clamd_conf_file");
 
    # and at the end start freshclam as daemon
-   spawn("$path/$fresh_clam --config-file $path/$conf_file -d");
+   spawn("$path/$fresh_clam --config-file $path/$freshclam_conf_file -d");
 }
 
 

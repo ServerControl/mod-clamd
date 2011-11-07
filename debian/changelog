@@ -1,3 +1,8 @@
+servercontrol-mod-clamd (0.96) unstable; urgency=low
+  * fix freshclam error, freshclam needs different conf file
+
+ -- Daniel Bäurer <daniel.baeurer@web.de>  Mon, 07 Nov 2011 14:41:00 +0200
+
 servercontrol-mod-clamd (0.95) unstable; urgency=low
   * added freshclam to debian schema
 
