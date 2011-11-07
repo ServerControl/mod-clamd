@@ -1,0 +1,3 @@
+lib/ServerControl/Module/Clamd.pm
+lib/ServerControl/Schema/Debian/Clamd.pm
+Makefile.PL
