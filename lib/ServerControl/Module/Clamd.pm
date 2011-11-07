@@ -42,10 +42,10 @@ sub start {
    my $clamd_conf_file		= ServerControl::FsLayout->get_file("Configuration", "clamd_conf");
    my $freshclam_conf_file	= ServerControl::FsLayout->get_file("Configuration", "freshclam_conf");
 
-   my ($name, $path)    = ($class->get_name, $class->get_path);
+   my ($name, $path)		= ($class->get_name, $class->get_path);
 
-   my $exec_file   = ServerControl::FsLayout->get_file("Exec", "clamd");
-   my $fresh_clam  = ServerControl::FsLayout->get_file("Exec", "freshclam");
+   my $exec_file		= ServerControl::FsLayout->get_file("Exec", "clamd");
+   my $fresh_clam		= ServerControl::FsLayout->get_file("Exec", "freshclam");
 
    # get updates first
    spawn("$path/$fresh_clam --config-file $path/$freshclam_conf_file");
@@ -57,5 +57,38 @@ sub start {
    spawn("$path/$fresh_clam --config-file $path/$freshclam_conf_file -d");
 }
 
+sub stop {
+   my ($class)          = @_;
+   my $pid_file_error   = 0;
+
+   my $clamd_pid_file      = ServerControl::FsLayout->get_file("Runtime", "clamd_pid");
+   my $freshclam_pid_file  = ServerControl::FsLayout->get_file("Runtime", "freshclam_pid");
+
+   if( -f $clamd_pid_file ) {
+      my $clamd_pid = eval { local(@ARGV, $/) = ($clamd_pid_file); <>; };
+      chomp $clamd_pid;
+
+      kill 15, $clamd_pid;
+      unlink $clamd_pid_file;
+   }
+   else {
+      $pid_file_error = 1;
+   }
+
+   if( -f $freshclam_pid_file ) {
+      my $freshclam_pid = eval { local(@ARGV, $/) = ($freshclam_pid_file); <>; };
+      chomp $freshclam_pid;
+
+      kill 15, $freshclam_pid;
+      unlink $freshclam_pid_file;
+   }
+   else {
+      $pid_file_error = 1;
+   }
+
+   if( $pid_file_error == 1 ) {
+      die("No PID file given / found");
+   }
+}
 
 1;
