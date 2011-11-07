@@ -1,3 +1,8 @@
+servercontrol-mod-clamd (0.97) unstable; urgency=low
+  * added stop function to stop clamd and freshclam
+
+ -- Daniel Bäurer <daniel.baeurer@web.de>  Mon, 07 Nov 2011 14:25:00 +0200
+
 servercontrol-mod-clamd (0.96) unstable; urgency=low
   * fix freshclam error, freshclam needs different conf file
 
